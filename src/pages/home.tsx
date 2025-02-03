@@ -22,6 +22,7 @@ import { NavLink, useNavigate, useSearchParams } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "../store/hooks";
 
 const PAGE_SIZE = 10;
 
@@ -30,7 +31,14 @@ function Home() {
   const navigate = useNavigate();
 
   const [movies, setMovies] = useState<IMovie[]>([]);
-  const [name, setName] = useState<string>("Pokemon");
+
+  const dispatch = useDispatch();
+  const name = useSelector((store) => store.movieData.name);
+
+  const setName = (name: string) => {
+    dispatch({ type: "SET_NAME", payload: name });
+  };
+
   const [year, setYear] = useState<string>("");
   const [type, setType] = useState<IMovieType | "">("");
 
