@@ -2,4 +2,5 @@
 
 - Download or clone the project,
 - Create a .env file similar to `.env.example` at the root of your project, fill in with your credentials,
+- Install dependencies with `npm install`,
 - Run `npm run dev` to start the project.

@@ -6,27 +6,51 @@ export function omdbService() {
 
   async function getMovies({
     name,
-    queryParams = {},
+    type,
+    year,
     pageNumber = 1,
   }: {
     name: string;
-    queryParams?: { type?: string; year?: string };
+    type?: string;
+    year?: string;
     pageNumber?: number;
-  }): Promise<IMovie[] | void> {
+  }): Promise<{
+    result: IMovie[];
+    totalResults: number;
+  } | void> {
     try {
       const response = await axiosClient.get("", {
-        params: { s: name, ...queryParams, page: pageNumber },
+        params: { s: name, type, y: year, page: pageNumber },
       });
 
       if (!response || !response.data) throw new Error("No Response Data!");
       if (response.data.Response === false)
         throw new Error(response.data.Error);
 
-      return response.data.Search;
+      return {
+        result: response.data.Search,
+        totalResults: Number(response.data.totalResults),
+      };
     } catch (error: any) {
       console.log(error.message);
     }
   }
 
-  return { getMovies };
+  async function getMovieDetail(id: string): Promise<IMovie | void> {
+    try {
+      const response = await axiosClient.get("", {
+        params: { i: id },
+      });
+
+      if (!response || !response.data) throw new Error("No Response Data!");
+      if (response.data.Response === false)
+        throw new Error(response.data.Error);
+
+      return response.data;
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
+
+  return { getMovies, getMovieDetail };
 }
