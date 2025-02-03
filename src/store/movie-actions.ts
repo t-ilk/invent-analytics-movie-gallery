@@ -25,3 +25,9 @@ export const setPageAction = (page: number) => {
     payload: page,
   };
 };
+
+export const resetAction = () => {
+  return {
+    type: "RESET",
+  };
+};
