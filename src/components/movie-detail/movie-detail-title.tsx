@@ -12,6 +12,8 @@ interface Props {
 
 function MovieDetailTitle({ title, year, runtime, imdbID }: Props) {
   const formatDuration = (duration: string) => {
+    if (duration.includes("N/A")) return " ";
+
     const durationInMinutes = duration.split(" ")[0];
     const [hours, minutes] = [
       Math.floor(parseInt(durationInMinutes) / 60),

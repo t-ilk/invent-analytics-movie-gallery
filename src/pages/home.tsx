@@ -5,7 +5,7 @@ import Movie from "../components/movie";
 import { IMovie } from "../api/types";
 import { NavLink, useNavigate } from "react-router";
 import { useSelector } from "../store/hooks";
-import Filter from "../components/filter";
+import Filter from "../components/filter/filter";
 import Pagination from "../components/pagination";
 import Header from "../components/header";
 import Footer from "../components/footer";

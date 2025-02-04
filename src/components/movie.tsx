@@ -25,7 +25,7 @@ function Movie({ movie }: { movie: IMovie }) {
               {movie.Title}
             </Typography>
           </Box>
-          <Stack direction={{ md: "row" }} spacing={2}>
+          <Stack direction={{ md: "row" }} spacing={1}>
             <Typography variant="body1">{movie.Year}</Typography>
             <NavLink
               className={styles.link}
@@ -34,7 +34,7 @@ function Movie({ movie }: { movie: IMovie }) {
               onClick={handleIMDbClick}
             >
               <Typography className={styles.linkText} variant="body1">
-                IMDb Page
+                IMDb
                 <NavigateNextIcon fontSize="medium" />
               </Typography>
             </NavLink>

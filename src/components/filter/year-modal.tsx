@@ -1,7 +1,7 @@
 import { Box, Modal, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import styles from "./styles/year-modal.module.css";
+import styles from "../styles/year-modal.module.css";
 
 interface Props {
   modalOpen: boolean;
@@ -18,6 +18,12 @@ function YearModal({
   setYearQuery,
   handleYearChange,
 }: Props) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== "Enter") return;
+    handleYearChange();
+    handleModalClose();
+  };
+
   return (
     <Modal open={modalOpen} onClose={handleModalClose}>
       <Box className={styles.modalWindow}>
@@ -32,6 +38,7 @@ function YearModal({
               value={yearQuery}
               onChange={(event) => setYearQuery(event.target.value)}
               onBlur={handleYearChange}
+              onKeyDown={handleKeyDown}
             />
           </Box>
         </Stack>
