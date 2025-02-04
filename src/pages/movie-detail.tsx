@@ -4,10 +4,11 @@ import { omdbService } from "../api/omdb-service";
 import { IMovieDetail } from "../api/types";
 import { Box, Typography } from "@mui/material";
 import Header from "../components/header";
-
-import styles from "./styles/movie-detail.module.css";
 import MovieDetailInfo from "../components/movie-detail/movie-detail-info";
 import MovieDetailTitle from "../components/movie-detail/movie-detail-title";
+import Footer from "../components/footer";
+
+import styles from "./styles/movie-detail.module.css";
 
 function MovieDetail() {
   const { id } = useParams();
@@ -54,6 +55,7 @@ function MovieDetail() {
           <Typography variant="h4">Loading...</Typography>
         )}
       </Box>
+      <Footer />
     </Box>
   );
 }

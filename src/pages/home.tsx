@@ -7,9 +7,10 @@ import { NavLink, useNavigate } from "react-router";
 import { useSelector } from "../store/hooks";
 import Filter from "../components/filter";
 import Pagination from "../components/pagination";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 import styles from "./styles/home.module.css";
-import Header from "../components/header";
 
 const PAGE_SIZE = 10;
 
@@ -67,6 +68,7 @@ function Home() {
           </Grid2>
           <Pagination totalPageCount={totalPageCount} />
         </Stack>
+        <Footer />
       </Box>
     </>
   );
