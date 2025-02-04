@@ -1,0 +1,13 @@
+.toolbar {
+  background: black;
+  padding: 0.4rem 0.6rem 0.2rem 0.4rem;
+}
+
+.title {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.searchContainer {
+  margin-left: 0.8rem;
+}

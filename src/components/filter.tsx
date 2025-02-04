@@ -4,9 +4,12 @@ import { useState } from "react";
 import YearModal from "./year-modal";
 import { useDispatch } from "../store/hooks";
 
+import styles from "./styles/filter.module.css";
+
 function Filter() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [yearQuery, setYearQuery] = useState<string>("");
+
   const dispatch = useDispatch();
   const setYear = (year: string) => {
     dispatch({ type: "SET_YEAR", payload: year });
@@ -30,10 +33,10 @@ function Filter() {
   };
 
   return (
-    <Box>
-      <IconButton type="button" onClick={handleModalOpen}>
+    <Box className={styles.container}>
+      <Box className={styles.button} onClick={handleModalOpen}>
         <FilterListIcon />
-      </IconButton>
+      </Box>
       <YearModal
         modalOpen={modalOpen}
         handleModalClose={handleModalClose}

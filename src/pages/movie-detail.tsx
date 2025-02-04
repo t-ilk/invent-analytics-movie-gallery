@@ -3,6 +3,11 @@ import { useParams } from "react-router";
 import { omdbService } from "../api/omdb-service";
 import { IMovieDetail } from "../api/types";
 import { Box, Typography } from "@mui/material";
+import Header from "../components/header";
+
+import styles from "./styles/movie-detail.module.css";
+import MovieDetailInfo from "../components/movie-detail/movie-detail-info";
+import MovieDetailTitle from "../components/movie-detail/movie-detail-title";
 
 function MovieDetail() {
   const { id } = useParams();
@@ -13,42 +18,42 @@ function MovieDetail() {
 
     const getMovie = async () => {
       const response = await omdbService().getMovieDetail(id);
-      if (response) setMovie(response);
+      if (!response) return;
+      setMovie(response);
     };
 
     getMovie();
   }, []);
 
   return (
-    <Box>
-      {movie ? (
-        <Box>
-          <Box component="img" src={movie.Poster} alt={movie.Title} />
-          <Typography variant="h4">{movie.Title}</Typography>
-          <Typography variant="h6">Release Date: {movie.Year}</Typography>
-          <Typography variant="h6">IMDb ID: {movie.imdbID}</Typography>
-          <Typography variant="h6">Rated: {movie.Rated}</Typography>
-          <Typography variant="h6">Runtime: {movie.Runtime}</Typography>
-          <Typography variant="h6">Genre: {movie.Genre}</Typography>
-          <Typography variant="h6">Director: {movie.Director}</Typography>
-          <Typography variant="h6">Writer: {movie.Writer}</Typography>
-          <Typography variant="h6">Actors: {movie.Actors}</Typography>
-          <Typography variant="h6">Plot: {movie.Plot}</Typography>
-          <Typography variant="h6">Language: {movie.Language}</Typography>
-          <Typography variant="h6">Country: {movie.Country}</Typography>
-          <Typography variant="h6">Awards: {movie.Awards}</Typography>
-          <Typography variant="h6">Metascore: {movie.Metascore}</Typography>
-          <Typography variant="h6">IMDb Rating: {movie.imdbRating}</Typography>
-          <Typography variant="h6">IMDb Votes: {movie.imdbVotes}</Typography>
-          <Typography variant="h6">Type: {movie.Type}</Typography>
-          <Typography variant="h6">DVD: {movie.DVD}</Typography>
-          <Typography variant="h6">Box Office: {movie.BoxOffice}</Typography>
-          <Typography variant="h6">Production: {movie.Production}</Typography>
-          <Typography variant="h6">Website: {movie.Website}</Typography>
-        </Box>
-      ) : (
-        <Typography variant="h4">Loading...</Typography>
-      )}
+    <Box className={styles.container}>
+      <Header withSearch={false} />
+      <Box className={styles.layout}>
+        {movie ? (
+          <Box>
+            <MovieDetailTitle
+              title={movie.Title}
+              year={movie.Year}
+              runtime={movie.Runtime}
+              imdbID={movie.imdbID}
+            />
+            <MovieDetailInfo
+              poster={movie.Poster}
+              title={movie.Title}
+              genre={movie.Genre}
+              plot={movie.Plot}
+              director={movie.Director}
+              writer={movie.Writer}
+              actors={movie.Actors}
+              imdbRating={movie.imdbRating}
+              metascore={movie.Metascore}
+              ratings={movie.Ratings}
+            />
+          </Box>
+        ) : (
+          <Typography variant="h4">Loading...</Typography>
+        )}
+      </Box>
     </Box>
   );
 }

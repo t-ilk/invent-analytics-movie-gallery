@@ -1,0 +1,21 @@
+.titleContainer {
+  margin-bottom: 1rem;
+}
+
+.link {
+  background: black;
+  color: white;
+  padding: 0 0.8rem;
+  border-radius: 20rem;
+}
+
+.link:hover {
+  background: white;
+  color: black;
+  transition: background 0.5s;
+}
+
+.linkText {
+  display: flex;
+  justify-content: center;
+}

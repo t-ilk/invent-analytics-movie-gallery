@@ -1,4 +1,3 @@
-
 export type IMovieType = "movie" | "series" | "episode";
 export interface IMovie {
   Title: string;
@@ -9,13 +8,13 @@ export interface IMovie {
 }
 //   "Title": "Pokémon: Detective Pikachu",
 //   "Year": "2019",
-//   "Released": "10 May 2019",
 //   "Runtime": "104 min",
 //   "Genre": "Adventure, Comedy, Family",
 //   "Director": "Rob Letterman",
 //   "Writer": "Dan Hernandez, Benji Samit, Rob Letterman",
 //   "Actors": "Ryan Reynolds, Justice Smith, Kathryn Newton",
 //   "Plot": "In a world where people collect Pokémon to do battle, a boy comes across an intelligent talking Pikachu who seeks to be a detective.",
+//   "Released": "10 May 2019",
 //   "Language": "English, Japanese",
 //   "Country": "United States, Japan, United Kingdom, Canada",
 //   "Awards": "10 nominations total",
@@ -47,21 +46,16 @@ export interface IMovie {
 export interface IMovieDetail {
   Title: string;
   Year: string;
-  Rated: string;
-  Released: string;
   Runtime: string;
+  Poster: string;
+  Plot: string;
   Genre: string;
+  imdbID: string;
+  Rated: string;
   Director: string;
   Writer: string;
   Actors: string;
-  Plot: string;
   Ratings: { Source: string; Value: string }[];
-  Metascore: string;
   imdbRating: string;
-  imdbVotes: string;
-  BoxOffice: string;
-  Website: string;
-  Country: string;
-  Language: string;
-  Poster: string;
+  Metascore: string;
 }

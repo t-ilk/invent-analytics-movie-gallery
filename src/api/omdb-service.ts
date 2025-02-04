@@ -1,5 +1,5 @@
 import { client } from "./client";
-import { IMovie } from "./types";
+import { IMovie, IMovieDetail } from "./types";
 
 export function omdbService() {
   const axiosClient = client;
@@ -36,7 +36,7 @@ export function omdbService() {
     }
   }
 
-  async function getMovieDetail(id: string): Promise<IMovie | void> {
+  async function getMovieDetail(id: string): Promise<IMovieDetail | void> {
     try {
       const response = await axiosClient.get("", {
         params: { i: id },

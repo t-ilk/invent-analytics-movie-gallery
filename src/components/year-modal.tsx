@@ -1,5 +1,7 @@
-import { Box, IconButton, Modal, Stack, TextField } from "@mui/material";
+import { Box, Modal, Stack, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+
+import styles from "./styles/year-modal.module.css";
 
 interface Props {
   modalOpen: boolean;
@@ -18,30 +20,15 @@ function YearModal({
 }: Props) {
   return (
     <Modal open={modalOpen} onClose={handleModalClose}>
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: "red",
-        }}
-      >
-        <Stack>
-          <IconButton
-            sx={{ alignSelf: "end" }}
-            type="button"
-            onClick={handleModalClose}
-          >
+      <Box className={styles.modalWindow}>
+        <Stack className={styles.windowLayout}>
+          <Box className={styles.button} onClick={handleModalClose}>
             <CloseIcon />
-          </IconButton>
-          <Box
-            sx={{
-              background: "white",
-            }}
-          >
+          </Box>
+          <Box className={styles.inputContainer}>
             <TextField
-              label="Year"
+              className={styles.input}
+              label="Write a Year"
               value={yearQuery}
               onChange={(event) => setYearQuery(event.target.value)}
               onBlur={handleYearChange}
