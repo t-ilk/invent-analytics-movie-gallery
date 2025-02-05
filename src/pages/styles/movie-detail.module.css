@@ -8,4 +8,5 @@
 .layout {
   padding: 2rem;
   padding-top: 4rem;
+  min-height: 100vh;
 }

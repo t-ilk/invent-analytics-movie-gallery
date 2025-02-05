@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8rem;
+}
+
+.text {
+  text-align: center;
+}
+
+.link {
+  margin-top: 1rem;
+  color: white;
+  background: black;
+  padding: 0.5rem 1rem;
+
+  border-radius: 1rem;
+}
+
+.link:hover {
+  background: white;
+  color: black;
+  transition: background 0.5s, color 0.5s;
+}

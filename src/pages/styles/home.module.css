@@ -5,4 +5,5 @@
 .pageLayout {
   padding: 2rem;
   padding-top: 6rem;
+  min-height: 100vh;
 }

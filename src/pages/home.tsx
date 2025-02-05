@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Grid2, Stack } from "@mui/material";
+import { Box, Grid2, Stack, Typography } from "@mui/material";
 import { omdbService } from "../api/omdb-service";
 import Movie from "../components/movie";
 import { IMovie } from "../api/types";
@@ -25,22 +25,30 @@ function Home() {
   const pageNumber = useSelector((store) => store.movieData.page);
 
   const [totalPageCount, setTotalPageCount] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getMovies = async () => {
-      const response = await omdbService().getMovies({
-        name,
-        pageNumber,
-        type,
-        year,
-      });
-      if (!response || !response.result) {
-        navigate("/404");
-        return;
-      }
+      try {
+        setLoading(true);
+        const response = await omdbService().getMovies({
+          name,
+          pageNumber,
+          type,
+          year,
+        });
+        if (!response || !response.result) {
+          throw new Error("Error getting movies");
+        }
 
-      setMovies(response.result);
-      setTotalPageCount(Math.ceil(response.totalResults / PAGE_SIZE));
+        setMovies(response.result);
+        setTotalPageCount(Math.ceil(response.totalResults / PAGE_SIZE));
+      } catch (error) {
+        console.error("Error getting movies", error);
+        navigate("/404");
+      } finally {
+        setLoading(false);
+      }
     };
 
     getMovies();
@@ -63,10 +71,16 @@ function Home() {
         <Header />
         <Filter />
         <Stack spacing={2} className={styles.pageLayout}>
-          <Grid2 container spacing={4}>
-            {displayMovies()}
-          </Grid2>
-          <Pagination totalPageCount={totalPageCount} />
+          {loading ? (
+            <Typography variant="h4">Loading...</Typography>
+          ) : (
+            <>
+              <Grid2 container spacing={4}>
+                {displayMovies()}
+              </Grid2>
+              <Pagination totalPageCount={totalPageCount} />{" "}
+            </>
+          )}
         </Stack>
         <Footer />
       </Box>
