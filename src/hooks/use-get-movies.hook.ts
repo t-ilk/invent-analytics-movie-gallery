@@ -40,6 +40,7 @@ export function useGetMovies() {
         navigate("/404");
       } finally {
         setLoading(false);
+        window.scrollTo(0, 0);
       }
     };
 

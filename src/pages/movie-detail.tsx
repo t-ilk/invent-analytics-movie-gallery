@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { omdbService } from "../api/omdb-service";
 import { IMovieDetail } from "../api/types";
 import { Box, Typography } from "@mui/material";
@@ -14,13 +14,24 @@ function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState<IMovieDetail | null>(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      navigate("/404");
+      return;
+    }
 
     const getMovie = async () => {
-      const response = await omdbService().getMovieDetail(id);
-      if (!response) return;
-      setMovie(response);
+      try {
+        const response = await omdbService().getMovieDetail(id);
+        if (!response) throw new Error("Error getting movie");
+        setMovie(response);
+      } catch (error) {
+        console.error("Error getting movie", error);
+      } finally {
+        window.scrollTo(0, 0);
+      }
     };
 
     getMovie();
