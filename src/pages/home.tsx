@@ -1,58 +1,16 @@
-import { useEffect, useState } from "react";
 import { Box, Grid2, Stack, Typography } from "@mui/material";
-import { omdbService } from "../api/omdb-service";
 import Movie from "../components/movie";
-import { IMovie } from "../api/types";
-import { NavLink, useNavigate } from "react-router";
-import { useSelector } from "../store/hooks";
+import { NavLink } from "react-router";
 import Filter from "../components/filter/filter";
 import Pagination from "../components/pagination";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
 import styles from "./styles/home.module.css";
-
-const PAGE_SIZE = 10;
+import { useGetMovies } from "../hooks/use-get-movies.hook";
 
 function Home() {
-  const navigate = useNavigate();
-
-  const [movies, setMovies] = useState<IMovie[]>([]);
-
-  const name = useSelector((store) => store.movieData.name);
-  const year = useSelector((store) => store.movieData.year);
-  const type = useSelector((store) => store.movieData.type);
-  const pageNumber = useSelector((store) => store.movieData.page);
-
-  const [totalPageCount, setTotalPageCount] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const getMovies = async () => {
-      try {
-        setLoading(true);
-        const response = await omdbService().getMovies({
-          name,
-          pageNumber,
-          type,
-          year,
-        });
-        if (!response || !response.result) {
-          throw new Error("Error getting movies");
-        }
-
-        setMovies(response.result);
-        setTotalPageCount(Math.ceil(response.totalResults / PAGE_SIZE));
-      } catch (error) {
-        console.error("Error getting movies", error);
-        navigate("/404");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getMovies();
-  }, [name, pageNumber, type, year]);
+  const { movies, totalPageCount, loading } = useGetMovies();
 
   const displayMovies = () =>
     movies.map((movie) => {

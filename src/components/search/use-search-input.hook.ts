@@ -4,11 +4,12 @@ import { useState } from "react";
 export function useSearchInput() {
   const dispatch = useDispatch();
 
-  const setPageNumber = (page: number) => {
-    dispatch({ type: "SET_PAGE", payload: page });
-  };
   const setName = (name: string) => {
     dispatch({ type: "SET_NAME", payload: name });
+  };
+
+  const reset = () => {
+    dispatch({ type: "RESET" });
   };
 
   const [search, setSearch] = useState<string>("");
@@ -19,8 +20,7 @@ export function useSearchInput() {
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-
-    setPageNumber(1);
+    reset();
     setName(search);
   };
 
